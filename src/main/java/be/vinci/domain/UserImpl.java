@@ -1,13 +1,22 @@
 package be.vinci.domain;
 
+import be.vinci.view.Views;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.swing.text.View;
+
+@JsonInclude(JsonInclude.Include.NON_NULL) // ignore tous les champs null
 class UserImpl implements User {
 
+  @JsonView(Views.Public.class)
   private int id;
 
+  @JsonView(Views.Public.class)
   private String login;
 
+  @JsonView(Views.Internal.class)
   private String password;
 
   @Override
