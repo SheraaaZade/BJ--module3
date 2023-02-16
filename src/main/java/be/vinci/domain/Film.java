@@ -1,5 +1,8 @@
 package be.vinci.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as = Film.class)
 public interface Film {
     int getId();
 
