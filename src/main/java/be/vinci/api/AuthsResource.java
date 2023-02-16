@@ -23,8 +23,8 @@ public class AuthsResource {
     public ObjectNode login(JsonNode json) {
         // Get and check credentials
         if (!json.hasNonNull("login") || !json.hasNonNull("password")) {
-            throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST)
-                    .entity("login or password required").type("text/plain").build());
+            throw new WebApplicationException
+                    ("login or password required", Response.Status.BAD_REQUEST);
         }
         String login = json.get("login").asText();
         String password = json.get("password").asText();
@@ -32,9 +32,8 @@ public class AuthsResource {
         // Try to login
         ObjectNode publicUser = myUserDataService.login(login, password);
         if (publicUser == null) {
-            throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED)
-                    .entity("Login or password incorrect").type(MediaType.TEXT_PLAIN)
-                    .build());
+            throw new WebApplicationException
+                    ("Login or password incorrect", Response.Status.UNAUTHORIZED);
         }
         return publicUser;
 
@@ -47,8 +46,8 @@ public class AuthsResource {
     public ObjectNode register(JsonNode json) {
         // Get and check credentials
         if (!json.hasNonNull("login") || !json.hasNonNull("password")) {
-            throw new WebApplicationException(Response.status(Response.Status.BAD_REQUEST)
-                    .entity("login or password required").type("text/plain").build());
+            throw new WebApplicationException
+                    ("login or password required", Response.Status.BAD_REQUEST);
         }
         String login = json.get("login").asText();
         String password = json.get("password").asText();
@@ -56,9 +55,8 @@ public class AuthsResource {
         // Try to login
         ObjectNode publicUser = myUserDataService.register(login, password);
         if (publicUser == null) {
-            throw new WebApplicationException(Response.status(Response.Status.CONFLICT)
-                    .entity("this resource already exists").type(MediaType.TEXT_PLAIN)
-                    .build());
+            throw new WebApplicationException
+                    ("this resource already exists", Response.Status.CONFLICT);
         }
         return publicUser;
 
