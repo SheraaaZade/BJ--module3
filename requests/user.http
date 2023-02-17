@@ -14,3 +14,7 @@ client.global.set("jamesToken", response.body.token);
 ### Read All users
 GET {{baseUrl}}/users
 Authorization: {{jamesToken}}
+
+### Read All users
+GET {{baseUrl}}/users
+Authorization: {{twigToken}}

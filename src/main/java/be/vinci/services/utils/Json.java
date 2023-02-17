@@ -1,6 +1,9 @@
 package be.vinci.services.utils;
 
 import be.vinci.utils.Config;
+import be.vinci.view.Views;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -73,5 +76,25 @@ public class Json<T> {
         }
     }
 
+    public <T> List <T> filterPublicJsonViewAsList(List<T> list){
+        try{
+            JavaType type = jsonMapper.getTypeFactory().constructCollectionType(List.class, this.type);
+            String publicItemListAsString = jsonMapper.writerWithView(Views.Public.class).writeValueAsString(list);
+            return jsonMapper.readerWithView(Views.Public.class).forType(type).readValue(publicItemListAsString);
+        } catch(JsonProcessingException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public <T> T filterPublicJsonView(T item){
+        try{
+            String publicItemAsString = jsonMapper.writerWithView(Views.Public.class).writeValueAsString(item) ;
+            return jsonMapper.readerWithView(Views.Public.class).forType(type).readValue(publicItemAsString);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

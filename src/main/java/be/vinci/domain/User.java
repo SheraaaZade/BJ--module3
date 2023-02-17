@@ -12,6 +12,14 @@ public interface User {
 
     void setId(int id);
 
+    int getAge();
+
+    void setAge(int age);
+
+    boolean isMarried();
+
+    void setMarried(boolean married);
+
     String getPassword();
 
     void setPassword(String password);
